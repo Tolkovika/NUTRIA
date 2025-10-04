@@ -1,0 +1,197 @@
+---
+interface Props {
+  openDelayMs?: number;
+}
+
+const { openDelayMs = 6000 } = Astro.props;
+---
+
+<div id="cta-root" data-open="false" aria-hidden="true" class="fixed inset-0 z-[70] hidden">
+  <button
+    id="cta-backdrop"
+    aria-hidden="true"
+    tabindex="-1"
+    class="modal-backdrop opacity-0 transition-opacity duration-300"
+  ></button>
+
+  <div
+    id="cta-card"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cta-title"
+    class="absolute left-1/2 top-1/2 w-[92vw] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white p-6 shadow-2xl ring-1 ring-black/5 opacity-0 scale-95 transition duration-300 focus:outline-none"
+    tabindex="-1"
+  >
+    <div class="flex items-start justify-between gap-4">
+      <h2 id="cta-title" class="text-xl font-semibold text-slate-900">Start living healthy right now.</h2>
+      <button
+        id="cta-close"
+        type="button"
+        aria-label="Close"
+        class="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+      >
+        ✕
+      </button>
+    </div>
+    <p class="mt-2 text-slate-600">Personalized plans + local groceries in minutes. Zero fluff, real results.</p>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <a id="cta-join" href="#free" class="btn-brand w-full text-center">Join now for free</a>
+      <a id="cta-explore" href="#features" class="btn-ghost w-full text-center">Explore more</a>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  const root = document.getElementById('cta-root');
+  const card = document.getElementById('cta-card');
+  const backdrop = document.getElementById('cta-backdrop');
+  const closeBtn = document.getElementById('cta-close');
+  const joinLink = document.getElementById('cta-join');
+  const exploreLink = document.getElementById('cta-explore');
+
+  if (root && card && backdrop && closeBtn && joinLink && exploreLink) {
+    const openDelay = Number({openDelayMs});
+    const storageKey = 'nutriaCtaSeenAt';
+    const sevenDays = 7 * 24 * 60 * 60 * 1000;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const seenAt = Number(localStorage.getItem(storageKey) || '0');
+    const shouldShow = !seenAt || Number.isNaN(seenAt) || Date.now() - seenAt > sevenDays;
+
+    let isOpen = false;
+    let lastFocused = null;
+
+    const focusableSelectors = [
+      'a[href]',
+      'button:not([disabled])',
+      'textarea:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      '[tabindex]:not([tabindex="-1"] )'
+    ].join(',');
+
+    let focusables = [];
+
+    const setFocusables = () => {
+      focusables = Array.from(card.querySelectorAll(focusableSelectors));
+      if (!focusables.length) {
+        focusables = [card];
+      }
+    };
+
+    const trapFocus = (event) => {
+      if (!isOpen || event.key !== 'Tab') return;
+      setFocusables();
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    const lockScroll = () => {
+      document.documentElement.classList.add('overflow-hidden');
+      document.body.classList.add('overflow-hidden');
+    };
+
+    const unlockScroll = () => {
+      document.documentElement.classList.remove('overflow-hidden');
+      document.body.classList.remove('overflow-hidden');
+    };
+
+    const saveSeen = () => {
+      localStorage.setItem(storageKey, String(Date.now()));
+    };
+
+    const closeModal = () => {
+      if (!isOpen) return;
+      isOpen = false;
+      root.dataset.open = 'false';
+      root.setAttribute('aria-hidden', 'true');
+      backdrop.classList.add('opacity-0');
+      card.classList.add('opacity-0', 'scale-95');
+      if (!reduceMotion) {
+        window.setTimeout(() => {
+          root.classList.add('hidden');
+        }, 200);
+      } else {
+        root.classList.add('hidden');
+      }
+      unlockScroll();
+      window.removeEventListener('keydown', handleKeydown, true);
+      backdrop.removeEventListener('click', handleBackdrop);
+      card.removeEventListener('click', interceptBackdrop);
+      saveSeen();
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      }
+    };
+
+    const interceptBackdrop = (event) => {
+      event.stopPropagation();
+    };
+
+    const handleBackdrop = () => {
+      closeModal();
+    };
+
+    const handleKeydown = (event) => {
+      if (!isOpen) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeModal();
+      } else if (event.key === 'Tab') {
+        trapFocus(event);
+      }
+    };
+
+    const openModal = () => {
+      if (isOpen) return;
+      isOpen = true;
+      lastFocused = document.activeElement;
+      root.dataset.open = 'true';
+      root.setAttribute('aria-hidden', 'false');
+      root.classList.remove('hidden');
+      backdrop.classList.remove('opacity-0');
+      card.classList.remove('opacity-0', 'scale-95');
+      lockScroll();
+      setFocusables();
+      const target = focusables[0] || card;
+      target.focus({ preventScroll: true });
+      window.addEventListener('keydown', handleKeydown, true);
+      backdrop.addEventListener('click', handleBackdrop);
+      card.addEventListener('click', interceptBackdrop);
+    };
+
+    const smoothScroll = (selector) => {
+      const el = document.querySelector(selector);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    const handleLink = (event, selector) => {
+      event.preventDefault();
+      closeModal();
+      window.setTimeout(() => smoothScroll(selector), reduceMotion ? 0 : 120);
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    joinLink.addEventListener('click', (event) => handleLink(event, '#free'));
+    exploreLink.addEventListener('click', (event) => handleLink(event, '#features'));
+
+    if (reduceMotion) {
+      backdrop.style.transitionDuration = '0s';
+      card.style.transitionDuration = '0s';
+    }
+
+    if (shouldShow) {
+      window.setTimeout(openModal, Math.max(0, openDelay));
+    }
+  }
+</script>

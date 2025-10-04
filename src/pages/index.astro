@@ -1,11 +1,593 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const currentYear = new Date().getFullYear();
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout>
+  <!-- HERO -->
+  <section
+    id="hero"
+    data-reveal
+    data-parallax
+    class="hero-mascot relative z-0 isolate overflow-hidden rounded-3xl border border-[#eeeeee] px-8 py-24 shadow-xl sm:px-12 sm:py-28"
+    style="background: linear-gradient(145deg, #fff8f3 0%, #ffe4cc 100%);"
+  >
+
+    <div class="relative z-10 mx-auto max-w-3xl text-center">
+      <h1 class="text-3xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+        Your diet. From nearby stores. Today.
+      </h1>
+      <p class="mt-6 text-base leading-7 text-slate-600 sm:text-lg">
+        NUTRIA connects personalized meal plans with instant grocery delivery from your nearest stores — all based on
+        your preferences, allergens, and doctor’s recommendations.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href="#cta" class="btn-brand" data-ripple data-pulse>Get Started</a>
+        <a href="#how-it-works" class="btn-ghost" data-ripple>How it works</a>
+      </div>
+    </div>
+
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[color:var(--brand)]/18 blur-3xl"></div>
+      <div class="absolute -left-12 top-10 h-56 w-56 rounded-full bg-[color:var(--brand)]/12 blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 h-64 w-64 translate-x-1/3 translate-y-1/3 rounded-full bg-amber-200/30 blur-3xl"></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" data-reveal class="reveal-item mt-24 space-y-12 scroll-mt-24">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-2xl font-semibold text-slate-900 sm:text-3xl">How it works</h2>
+      <p class="mt-3 text-base text-slate-600">
+        Three simple steps to feel confident in every meal — tailored to you and delivered from stores you already know.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-3 justify-items-center">
+      <!-- 1) Tell us about yourself -->
+      <article
+        data-reveal
+        tabindex="0"
+        class="reveal-item group rounded-3xl border border-[#eeeeee] bg-white p-6 shadow-sm transition hover:ring-1 hover:ring-[color:var(--brand)]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white" data-tilt
+      >
+        <div class="text-3xl transition-transform duration-300 group-hover:scale-105">🥗</div>
+        <h3 class="mt-4 text-lg font-semibold text-slate-900">Tell us about yourself</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+          Share your preferences, allergens, goals, and medical nutrition prescriptions so we know exactly what to plan.
+        </p>
+      </article>
+
+      <!-- 2) Get your plan -->
+      <article
+        data-reveal
+        tabindex="0"
+        class="reveal-item group rounded-3xl border border-[#eeeeee] bg-white p-6 shadow-sm transition hover:ring-1 hover:ring-[color:var(--brand)]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white" data-tilt
+      >
+        <div class="text-3xl transition-transform duration-300 group-hover:scale-105">🧠</div>
+        <h3 class="mt-4 text-lg font-semibold text-slate-900">Get your plan</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+          Receive a weekly meal plan with recipes, nutrient highlights, and a smart shopping list ready to go.
+        </p>
+      </article>
+
+      <!-- 3) Order locally with mini partner logos -->
+      <article
+        data-reveal
+        tabindex="0"
+        class="reveal-item group rounded-3xl border border-[#eeeeee] bg-white p-6 shadow-sm transition hover:ring-1 hover:ring-[color:var(--brand)]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white" data-tilt
+      >
+        <div class="text-3xl transition-transform duration-300 group-hover:scale-105">🛒</div>
+        <h3 class="mt-4 text-lg font-semibold text-slate-900">Order locally</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+          Choose from trusted local partners and get instant delivery or in-store pickup or let <span class="font-semibold text-[color:var(--brand)]">our AI agent handle it all for you!</span>
+        </p>
+        <div class="mt-4 flex justify-center gap-3 opacity-90">
+          <img src="/logos/zabka.png" alt="Żabka" class="h-6 w-auto" />
+          <img src="/logos/carrefour.png" alt="Carrefour" class="h-6 w-auto" />
+          <img src="/logos/biedronka.png" alt="Biedronka" class="h-6 w-auto" />
+          <img src="/logos/lidl.png" alt="Lidl" class="h-6 w-auto" />
+          <img src="/logos/auchan.png" alt="Auchan" class="h-6 w-auto" />
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- WHY NUTRIA -->
+  <section id="features" data-reveal class="reveal-item mt-24 space-y-12 scroll-mt-24 text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-2xl font-semibold text-slate-900 sm:text-3xl">Why NUTRIA</h2>
+      <p class="mt-3 text-base text-slate-600">
+        Your nutrition companion that aligns health goals, medical needs, and on-demand shopping in one experience.
+      </p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <article tabindex="0" class="group rounded-3xl border border-[#eeeeee] bg-white p-6 shadow-sm transition hover:ring-1 hover:ring-[color:var(--brand)]/20" data-tilt>
+        <h3 class="text-lg font-semibold text-slate-900">360° Personalization</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+          Fully tailored to your needs and restrictions, adapting as your goals evolve.
+        </p>
+      </article>
+      <article tabindex="0" class="group rounded-3xl border border-[#eeeeee] bg-white p-6 shadow-sm transition hover:ring-1 hover:ring-[color:var(--brand)]/20" data-tilt>
+        <h3 class="text-lg font-semibold text-slate-900">Local Shopping</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+          Direct integration with nearby grocery stores for real-time availability and pricing.
+        </p>
+      </article>
+      <article tabindex="0" class="group rounded-3xl border border-[#eeeeee] bg-white p-6 shadow-sm transition hover:ring-1 hover:ring-[color:var(--brand)]/20" data-tilt>
+        <h3 class="text-lg font-semibold text-slate-900">Health-Backed Planning</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+          We include your medical notes, allergen alerts, and nutritionist guidelines in every plan we generate.
+        </p>
+      </article>
+      <article tabindex="0" class="group rounded-3xl border border-[#eeeeee] bg-white p-6 shadow-sm transition hover:ring-1 hover:ring-[color:var(--brand)]/20" data-tilt>
+        <h3 class="text-lg font-semibold text-slate-900">Always On Support</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+          Chat with nutrition experts, adjust plans instantly, and sync changes across your household.
+        </p>
+      </article>
+    </div>
+  </section>
+
+<!-- TRUST -->
+<section id="trust" data-reveal class="reveal-item mt-24 scroll-mt-24 text-center">
+  <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
+    Trusted by nutritionists and retailers
+  </p>
+  <div class="mt-10 rounded-3xl bg-gradient-to-r from-white via-[#fff9f5] to-white py-6 shadow-sm flex flex-wrap justify-center gap-10 items-center">
+    <img src="/logos/zabka.png" alt="Żabka" class="partner-logo h-16 w-auto" />
+    <img src="/logos/carrefour.png" alt="Carrefour" class="partner-logo h-16 w-auto" />
+    <img src="/logos/biedronka.png" alt="Biedronka" class="partner-logo h-16 w-auto" />
+    <img src="/logos/lidl.png" alt="Lidl" class="partner-logo h-16 w-auto" />
+    <img src="/logos/auchan.png" alt="Auchan" class="partner-logo h-16 w-auto" />
+  </div>
+</section>
+
+  <!-- CTA -->
+  <section
+    id="cta"
+    data-reveal
+    class="reveal-item mt-24 rounded-3xl border border-[#eeeeee] bg-gradient-to-r from-[color:var(--brand)]/12 via-[color:var(--brand)]/8 to-transparent p-8 shadow-sm sm:p-10 text-center"
+  >
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-2xl font-semibold text-slate-900 sm:text-3xl">Join our early access</h2>
+      <p class="mt-3 text-base text-slate-600">
+        Be first to plan, shop, and track with NUTRIA the moment we launch in your city.
+      </p>
+      <form class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center" data-cta-form>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          class="w-full rounded-full border border-[#e5e7eb] bg-white px-5 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[color:var(--brand)] sm:max-w-xs"
+          required
+        />
+        <button type="submit" class="btn-brand" data-ripple>Request Invite</button>
+      </form>
+    </div>
+  </section>
+
+  <section
+    id="plans"
+    data-reveal
+    class="reveal-item mt-24 scroll-mt-24"
+  >
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-2xl sm:text-3xl font-semibold text-slate-900">Choose your momentum</h2>
+      <p class="mt-3 text-base text-slate-600">Start free, then upgrade into deeper personalization exactly when you’re ready.</p>
+    </div>
+
+    <div id="plans-grid" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
+      <article id="free" class="plan-card min-h-[420px]" tabindex="0" data-tilt>
+        <div>
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-semibold text-slate-900">🆓 Free</h3>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">No card</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600">Try the essentials and see how Nutria fits your rhythm.</p>
+          <ul class="mt-5 space-y-3 text-sm text-slate-700">
+            <li class="flex gap-3"><span class="check"></span>Basic daily meal plan (limited personalization)</li>
+            <li class="flex gap-3"><span class="check"></span>AI nutrition chat (3–5 messages/day)</li>
+            <li class="flex gap-3"><span class="check"></span>Calorie & macro calculator</li>
+            <li class="flex gap-3"><span class="check"></span>Access to public recipes and grocery lists</li>
+            <li class="flex gap-3"><span class="check"></span>Limited progress tracking</li>
+            <li class="flex gap-3"><span class="check"></span>“Try before you pay” onboarding flow</li>
+          </ul>
+        </div>
+        <a href="#cta" class="btn-ghost mt-6 w-full justify-center" data-ripple>Get Started Free</a>
+      </article>
+
+      <article id="free" class="plan-card min-h-[420px]" tabindex="0" data-tilt>
+        <div>
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-semibold text-slate-900">🥈 Starter</h3>
+            <span class="rounded-full bg-[color:var(--brand)]/10 px-3 py-1 text-xs font-medium text-[color:var(--brand)]">€5.55</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600">Short bursts with precision macros, fresh lists, and AI micro-coaching.</p>
+          <ul class="mt-5 space-y-3 text-sm text-slate-700">
+            <li class="flex gap-3"><span class="check"></span>3-day adaptive plan updated weekly</li>
+            <li class="flex gap-3"><span class="check"></span>Macro breakdowns & grocery essentials</li>
+            <li class="flex gap-3"><span class="check"></span>AI nudges and lightweight nutrition tips</li>
+          </ul>
+        </div>
+        <a href="#cta" class="btn-brand mt-6 w-full justify-center" data-ripple>Choose Starter</a>
+      </article>
+
+      <article class="plan-card min-h-[420px]" tabindex="0" data-tilt>
+        <div>
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-semibold text-slate-900">🥇 Pro</h3>
+            <span class="rounded-full bg-[color:var(--brand)]/10 px-3 py-1 text-xs font-medium text-[color:var(--brand)]">€9.99</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600">Weekly automation, delivery integrations, and actionable analytics.</p>
+          <ul class="mt-5 space-y-3 text-sm text-slate-700">
+            <li class="flex gap-3"><span class="check"></span>7-day plan with seasonal swaps & auto grocery lists</li>
+            <li class="flex gap-3"><span class="check"></span>Direct delivery through Lidl, Glovo, Carrefour</li>
+            <li class="flex gap-3"><span class="check"></span>Deep analytics + supplement recommendations</li>
+          </ul>
+        </div>
+        <a href="#cta" class="btn-brand mt-6 w-full justify-center" data-ripple>Choose Pro</a>
+      </article>
+
+      <article class="plan-card min-h-[420px]" tabindex="0" data-tilt>
+        <div>
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-semibold text-slate-900">💎 Master</h3>
+            <span class="rounded-full bg-[color:var(--brand)]/10 px-3 py-1 text-xs font-medium text-[color:var(--brand)]">€19.99</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600">Elite support with always-on coaching, micronutrient strategy, and syncs everywhere.</p>
+          <ul class="mt-5 space-y-3 text-sm text-slate-700">
+            <li class="flex gap-3"><span class="check"></span>Weekly AI coach check-ins & micronutrient guidance</li>
+            <li class="flex gap-3"><span class="check"></span>AI agent handles your groceries</li>
+            <li class="flex gap-3"><span class="check"></span>24/7 coach chat, priority support, performance insights</li>
+            <li class="flex gap-3"><span class="check"></span>Full fitness app sync (Apple Health, Fitbit, Strava)</li>
+          </ul>
+        </div>
+        <a href="#cta" class="btn-brand mt-6 w-full justify-center" data-ripple>Choose Master</a>
+      </article>
+    </div>
+  </section>
+
+
+
+
+  <div class="toast" data-toast role="status" aria-live="polite">Thanks! You’re on the list.</div>
+
+  <!-- FAQ -->
+  <section id="faq" data-reveal class="reveal-item mt-24 space-y-6 scroll-mt-24">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-2xl font-semibold text-slate-900 sm:text-3xl">Frequently asked questions</h2>
+      <p class="mt-3 text-base text-slate-600">Everything you want to know before you start planning with NUTRIA.</p>
+    </div>
+
+    <div class="mx-auto grid max-w-3xl gap-4">
+      <!-- Q1 -->
+      <details class="faq-card from-[#fff4ea] to-white border-[#ffd7b3]" open>
+        <summary class="faq-summary">
+          <span class="faq-left">
+            <span class="faq-icon bg-[#ffecd9] text-[color:var(--brand)]">🍊</span>
+            <span class="faq-title">Do you support allergies?</span>
+          </span>
+          <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="details-panel faq-panel">
+          Yes, allergies are captured during onboarding and automatically reflected in meal plans and shopping lists.
+        </div>
+      </details>
+
+      <!-- Q2 -->
+      <details class="faq-card from-[#eaf7ff] to-white border-[#bfe6ff]">
+        <summary class="faq-summary">
+          <span class="faq-left">
+            <span class="faq-icon bg-[#e6f4ff] text-sky-600">🛍️</span>
+            <span class="faq-title">Where do the products come from?</span>
+          </span>
+          <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="details-panel faq-panel">
+          From your nearest partner stores (Żabka, Carrefour, Biedronka, Lidl, Auchan, and more) based on your location.
+        </div>
+      </details>
+
+      <!-- Q3 -->
+      <details class="faq-card from-[#f3e8ff] to-white border-[#e3ccff]">
+        <summary class="faq-summary">
+          <span class="faq-left">
+            <span class="faq-icon bg-[#f1e7ff] text-violet-600">❗</span>
+            <span class="faq-title">Is this medical advice?</span>
+          </span>
+          <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="details-panel faq-panel">
+          No. NUTRIA supports and organizes recommendations provided by your healthcare professionals—it doesn’t replace them.
+        </div>
+      </details>
+
+      <!-- Q4 -->
+      <details class="faq-card from-[#eafff3] to-white border-[#bff0d2]">
+        <summary class="faq-summary">
+          <span class="faq-left">
+            <span class="faq-icon bg-[#e6fff2] text-emerald-600">🔄</span>
+            <span class="faq-title">Can I change the store?</span>
+          </span>
+          <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="details-panel faq-panel">
+          Absolutely. Pick your preferred store before checkout or switch anytime to compare availability and delivery times.
+        </div>
+      </details>
+    </div>
+  </section>
+
+
+  <!-- CONTACT -->
+  <section
+    id="contact"
+    data-reveal
+    class="reveal-item mt-24 flex flex-col items-center gap-3 rounded-3xl border border-[#eeeeee] bg-white px-6 py-10 text-sm text-slate-600 shadow-sm sm:flex-row sm:justify-between"
+  >
+    <p>© {currentYear} NUTRIA</p>
+    <div class="flex flex-wrap items-center gap-4">
+      <a href="#" class="rounded-full px-2 transition hover:text-[color:var(--brand)]">Privacy Policy</a>
+      <a href="mailto:hello@nutria.app" class="rounded-full px-2 transition hover:text-[color:var(--brand)]">Contact</a>
+    </div>
+  </section>
+
+  <style is:inline>
+    #hero::after {
+      content: "";
+      position: absolute;
+      inset: -60%;
+      background: conic-gradient(from 120deg at 50% 50%, rgba(255,118,10,0.18), transparent 55%);
+      opacity: 0.45;
+      animation: hero-spin 12s linear infinite;
+      transform-origin: center;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes hero-spin { to { transform: rotate(360deg); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      #hero::after { animation: none; opacity: 0.35; }
+    }
+
+    details[open] summary { color: #111827; }
+    summary::-webkit-details-marker { display: none; }
+  </style>
+
+  <script is:inline>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const revealTargets = document.querySelectorAll('[data-reveal]');
+
+    if (prefersReducedMotion.matches) {
+      revealTargets.forEach((el) => el.classList.add('reveal-in'));
+    } else {
+      const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('reveal-in');
+            observer.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+      );
+      revealTargets.forEach((el) => revealObserver.observe(el));
+    }
+
+    const hero = document.querySelector('[data-parallax]');
+    if (hero && !prefersReducedMotion.matches) {
+      let parallaxFrame;
+      const updateParallax = () => {
+        if (!hero) return;
+        const rect = hero.getBoundingClientRect();
+        const offset = Math.max(-24, Math.min(24, (window.innerHeight / 2 - rect.top) * 0.08));
+        hero.style.setProperty('--parallax', `${offset}px`);
+      };
+
+      updateParallax();
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (parallaxFrame) cancelAnimationFrame(parallaxFrame);
+          parallaxFrame = requestAnimationFrame(updateParallax);
+        },
+        { passive: true }
+      );
+
+      hero.addEventListener('pointermove', (event) => {
+        const rect = hero.getBoundingClientRect();
+        const relativeY = (event.clientY - rect.top) / rect.height;
+        const offset = (0.5 - relativeY) * 18;
+        hero.style.setProperty('--parallax', `${offset.toFixed(2)}px`);
+      });
+
+      hero.addEventListener('pointerleave', updateParallax);
+    }
+
+    const pulseTarget = document.querySelector('[data-pulse]');
+    if (pulseTarget && !prefersReducedMotion.matches) {
+      const pulseObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            pulseTarget.classList.add('btn-pulse');
+            observer.disconnect();
+            const clear = () => pulseTarget.classList.remove('btn-pulse');
+            pulseTarget.addEventListener('animationend', clear, { once: true });
+          });
+        },
+        { threshold: 0.6 }
+      );
+      pulseObserver.observe(pulseTarget);
+    }
+
+    const rippleElements = document.querySelectorAll('[data-ripple]');
+    rippleElements.forEach((el) => {
+      el.addEventListener('pointerdown', (event) => {
+        if (prefersReducedMotion.matches) return;
+        const rect = el.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${event.clientX - rect.left}px`;
+        ripple.style.top = `${event.clientY - rect.top}px`;
+        el.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+
+    const tiltCards = document.querySelectorAll('[data-tilt]');
+    if (!prefersReducedMotion.matches) {
+      tiltCards.forEach((card) => {
+        let tiltFrame;
+        const resetTilt = () => {
+          card.classList.add('tilt-reset');
+          card.style.setProperty('--tilt-x', '0deg');
+          card.style.setProperty('--tilt-y', '0deg');
+          card.style.setProperty('--tilt-translate', '0px');
+        };
+
+        card.addEventListener('pointerenter', () => {
+          card.classList.add('tilt-active');
+        });
+
+        card.addEventListener('focus', () => {
+          card.classList.add('tilt-active');
+        });
+
+        card.addEventListener('pointermove', (event) => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          const rotateY = ((x / rect.width) - 0.5) * 12;
+          const rotateX = ((0.5 - y / rect.height)) * 12;
+          if (tiltFrame) cancelAnimationFrame(tiltFrame);
+          tiltFrame = requestAnimationFrame(() => {
+            card.style.setProperty('--tilt-x', `${rotateX.toFixed(2)}deg`);
+            card.style.setProperty('--tilt-y', `${rotateY.toFixed(2)}deg`);
+          });
+        });
+
+        const leave = () => {
+          card.classList.remove('tilt-active');
+          resetTilt();
+        };
+
+        card.addEventListener('pointerleave', leave);
+        card.addEventListener('pointerup', leave);
+        card.addEventListener('blur', leave);
+        card.addEventListener('focusout', leave);
+        card.addEventListener('transitionend', () => card.classList.remove('tilt-reset'));
+      });
+    }
+
+
+
+    const faqDetails = document.querySelectorAll('[data-faq]');
+    faqDetails.forEach((detail) => {
+      const icon = detail.querySelector('[data-faq-icon]');
+      const updateIcon = () => {
+        if (!icon) return;
+        icon.textContent = detail.open ? '–' : '+';
+        icon.dataset.open = detail.open ? 'true' : 'false';
+      };
+      detail.addEventListener('toggle', updateIcon);
+      updateIcon();
+    });
+
+    const toast = document.querySelector('[data-toast]');
+    const ctaForm = document.querySelector('[data-cta-form]');
+    let toastTimeout;
+    if (toast && ctaForm) {
+      ctaForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        toast.setAttribute('data-visible', 'true');
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => toast.removeAttribute('data-visible'), 3200);
+        ctaForm.reset();
+      });
+    }
+  </script>
+
+  <div id="cta-pop" class="fixed inset-0 z-[999] hidden items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/30 backdrop-blur-sm" data-action="close"></div>
+    <div class="relative mx-auto w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-black/5">
+      <button class="absolute right-3 top-3 rounded-full px-2 py-1 text-slate-500 hover:text-slate-800" aria-label="Close" data-action="close">✕</button>
+      <h3 class="text-xl font-bold text-slate-900">Start living healthy today</h3>
+      <p class="mt-2 text-sm text-slate-600">Personalized meal plans, smart shopping, and progress tracking — all in one place.</p>
+      <div class="mt-5 flex gap-3">
+        <a href="#free" class="btn-brand flex-1 text-center">Join free</a>
+        <a href="#plans" class="btn-ghost flex-1 text-center">Explore more</a>
+      </div>
+      <button id="cta-pop-never" class="mt-4 w-full text-center text-xs text-slate-500 hover:text-slate-700">Don’t show this for 7 days</button>
+    </div>
+  </div>
+
+  <script is:inline>
+    window.addEventListener('load', () => {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+
+    (function () {
+      const NEVER_KEY = 'nutriaCtaHideUntil';
+      const SEEN_KEY = 'nutriaCtaSeenSession';
+      const el = document.getElementById('cta-pop');
+      if (!el) return;
+
+      const now = Date.now();
+      const hideUntil = Number(localStorage.getItem(NEVER_KEY) || 0);
+      const seenThisSession = sessionStorage.getItem(SEEN_KEY) === '1';
+
+      if (hideUntil && now < hideUntil) return;
+
+      if (!seenThisSession) {
+        setTimeout(() => {
+          el.classList.remove('hidden');
+          el.classList.add('flex');
+          sessionStorage.setItem(SEEN_KEY, '1');
+        }, 700);
+      }
+
+      const close = () => {
+        el.classList.remove('flex');
+        el.classList.add('hidden');
+      };
+
+      el.addEventListener('click', (e) => {
+        const target = e.target;
+        if (!(target instanceof Element)) return;
+        if (target.matches('[data-action="close"]')) close();
+      });
+
+      const neverBtn = document.getElementById('cta-pop-never');
+      if (neverBtn) {
+        neverBtn.addEventListener('click', () => {
+          const sevenDays = 7 * 24 * 60 * 60 * 1000;
+          localStorage.setItem(NEVER_KEY, String(Date.now() + sevenDays));
+          close();
+        });
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+      });
+
+      window.nutriaCta = {
+        show: () => {
+          el.classList.remove('hidden');
+          el.classList.add('flex');
+        },
+        hide: close,
+        reset: () => {
+          sessionStorage.removeItem(SEEN_KEY);
+          localStorage.removeItem(NEVER_KEY);
+        }
+      };
+    })();
+  </script>
+</BaseLayout>

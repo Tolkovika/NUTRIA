@@ -1,0 +1,98 @@
+---
+import "../styles/global.css";
+
+const currentYear = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en" class="h-full scroll-smooth bg-white text-slate-900">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>NUTRIA</title>
+  </head>
+  <body class="min-h-full bg-white text-slate-900 antialiased">
+    <header data-header class="sticky top-0 z-50 border-b border-[#eeeeee] bg-white/90 backdrop-blur transition-all duration-300">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+        <a href="/" class="flex items-center">
+          <img
+            src="/nutria-black.png"
+            alt="Nutria Logo"
+            class="h-12 w-auto mr-2 transition-transform duration-300 hover:rotate-3 hover:scale-105 focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          />
+          <span class="text-2xl font-extrabold tracking-tight text-slate-900">NUTRIA</span>
+        </a>
+
+        <nav aria-label="Primary" class="flex items-center gap-8 text-sm font-semibold text-slate-600">
+          <a
+            href="#features" data-nav-link class="nav-link rounded-full transition hover:text-[color:var(--brand)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            Features
+          </a>
+          <a
+            href="#how-it-works" data-nav-link class="nav-link rounded-full transition hover:text-[color:var(--brand)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            How It Works
+          </a>
+          <a
+  href="#plans" data-nav-link class="nav-link rounded-full transition hover:text-[color:var(--brand)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+>
+  Plans
+</a>
+          <a
+            href="#contact" data-nav-link class="nav-link rounded-full transition hover:text-[color:var(--brand)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            Contact
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-6">
+      <slot />
+    </main>
+
+    <footer class="mt-16 border-t border-[#eeeeee] bg-white">
+      <div class="mx-auto max-w-7xl px-6 py-8 text-sm text-slate-600">© {currentYear} NUTRIA</div>
+    </footer>
+    <script is:inline>
+      const header = document.querySelector('[data-header]');
+      const navLinks = Array.from(document.querySelectorAll('[data-nav-link]'));
+      const sections = navLinks
+        .map((link) => ({ link, target: document.querySelector(link.getAttribute('href')) }))
+        .filter((item) => item.target);
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      const setHeaderShadow = () => {
+        if (!header) return;
+        const shouldShadow = window.scrollY > 18;
+        header.classList.toggle('is-scrolled', shouldShadow);
+      };
+
+      const clearCurrent = () => {
+        navLinks.forEach((link) => link.removeAttribute('aria-current'));
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const item = sections.find((section) => section.target === entry.target);
+            if (!item) return;
+            if (entry.isIntersecting) {
+              clearCurrent();
+              item.link.setAttribute('aria-current', 'page');
+            }
+          });
+        },
+        { rootMargin: '-45% 0px -45% 0px', threshold: prefersReducedMotion.matches ? 0 : 0.25 }
+      );
+
+      sections.forEach((section) => observer.observe(section.target));
+
+      setHeaderShadow();
+      window.addEventListener('scroll', setHeaderShadow, { passive: true });
+    </script>
+
+  </body>
+</html>
